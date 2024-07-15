@@ -3,22 +3,22 @@ const foodPantryModel = require('../Models/foodPantryModel.js');
 const getAllFoodPantries = async (req, res) => {
     try {
     //   const boards = await boardModel.getAllBoards(filter, orderBy);
-      const restaurants = await restaurantModel.getAllRestaurants();
-      res.status(200).json(restaurants);
+      const foodPantries = await foodPantryModel.getAllFoodPantries();
+      res.status(200).json(foodPantries);
     } 
     catch (error) {
       res.status(400).json({ error: error.message });
     }
 };
 
-const getRestaurantById = async (req, res) => {
+const getFoodPantryById = async (req, res) => {
     try {
-        const restaurant = await restaurantModel.getRestaurantById(req.params.id);
-        if (restaurant) {
-            res.status(200).json(restaurant);
+        const foodPantry = await foodPantryModel.getFoodPantryById(req.params.id);
+        if (foodPantry) {
+            res.status(200).json(foodPantry);
         } 
         else {
-            res.status(404).json({ error: "Restaurant not found" });
+            res.status(404).json({ error: "Food Pantry not found" });
         }
     }
     catch (error) {
@@ -26,24 +26,24 @@ const getRestaurantById = async (req, res) => {
     }
 };
 
-const createRestaurant = async (req, res) => {
+const createFoodPantry = async (req, res) => {
     try {
-        const newRestaurant = await restaurantModel.createRestaurant(req.body);
-        res.status(201).json(newRestaurant);
+        const newFoodPantry = await foodPantryModel.createFoodPantry(req.body);
+        res.status(201).json(newFoodPantry);
     } 
     catch (error) {
       res.status(400).json({ error: error.message });
     }
 };
 
-const updateRestaurant = async (req, res) => {
+const updateFoodPantry = async (req, res) => {
     try {
-        const updateRestaurant = await restaurantModel.updateRestaurant(req.params.id, req.body);
-        if (updateRestaurant) {
-            res.status(200).json(updateRestaurant);
+        const updateFoodPantry = await foodPantryModel.updateFoodPantry(req.params.id, req.body);
+        if (updateFoodPantry) {
+            res.status(200).json(updateFoodPantry);
         }
         else {
-            res.status(404).json({ error: "Restaurant not found" });
+            res.status(404).json({ error: "Food Pantry not found" });
         }
     }
     catch (error) {
@@ -51,14 +51,14 @@ const updateRestaurant = async (req, res) => {
     }
 };
 
-const deleteRestaurant = async (req, res) => {
+const deleteFoodPantry = async (req, res) => {
     try {
-        const deleteRestaurant = await restaurantModel.deleteRestaurant(req.params.id);
-        if (deleteRestaurant) {
-            res.status(200).json(deleteRestaurant);
+        const deleteFoodPantry = await foodPantryModel.deleteFoodPantry(req.params.id);
+        if (deleteFoodPantry) {
+            res.status(200).json(deleteFoodPantry);
         }
         else {
-            res.status(404).json({ error: "Restaurant not found" });
+            res.status(404).json({ error: "Food Pantry not found" });
         }
     }
     catch (error) {
@@ -67,9 +67,9 @@ const deleteRestaurant = async (req, res) => {
 };
 
 module.exports = {
-    getAllRestaurants,
-    getRestaurantById,
-    createRestaurant,
-    updateRestaurant,
-    deleteRestaurant
+    getAllFoodPantries,
+    getFoodPantryById,
+    createFoodPantry,
+    updateFoodPantry,
+    deleteFoodPantry
 };

@@ -69,6 +69,7 @@ model Request {
 model RequestItem {
   id          Int      @id @default(autoincrement())
   quantity    Int
+  status      String
   listing_id  Int
   listing     Listing  @relation(fields: [listing_id], references: [id])
   request_id  Int
@@ -80,7 +81,7 @@ model Review {
   id              Int       @id @default(autoincrement())
   rating          Float
   date            DateTime
-  description     String?
+  description     String
   food_pantry_id  Int
   food_pantry     FoodPantry @relation(fields: [food_pantry_id], references: [id])
   restaurant_id   Int
