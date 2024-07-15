@@ -18,11 +18,11 @@ model Restaurant {
   id             Int       @id @default(autoincrement())
   name           String
   location       String
-  description    String?
+  description    String
   email          String
   phone_number   String
   rating         Float
-  profile_photo  String?
+  profile_photo  String
   listings       Listing[] // Establishing opposite relation
   reviews        Review[]  // Establishing opposite relation
 }
@@ -32,10 +32,10 @@ model FoodPantry {
   id             Int       @id @default(autoincrement())
   name           String
   location       String
-  description    String?
+  description    String
   email          String
   phone_number   String
-  profile_photo  String?
+  profile_photo  String
   requests       Request[] // Establishing opposite relation
   reviews        Review[]  // Establishing opposite relation
 }
@@ -46,13 +46,13 @@ model Listing {
   name            String
   quantity        Int
   unit            String
-  description     String?
+  description     String
   expiration_date String
   category        String
-  photo           String?
+  photo_url       String
   restaurant_id   Int
   restaurant      Restaurant @relation(fields: [restaurant_id], references: [id])
-  requests        RequestItem[] // Establishing opposite relation
+  request_items   RequestItem[] // Establishing opposite relation
 }
 
 // Request model
