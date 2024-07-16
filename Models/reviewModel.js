@@ -33,11 +33,18 @@ const deleteReview = async (id) => {
     });
 };
 
+const getReviewsByRestaurantId = async (restaurantId) => {
+    return prisma.review.findMany({
+        where: {restaurant_id: parseInt(restaurantId)}
+    });
+};
+
 
 module.exports = {
     getAllReviews,
     getReviewById,
     createReview,
     updateReview,
-    deleteReview
+    deleteReview,
+    getReviewsByRestaurantId
 };

@@ -34,11 +34,18 @@ const deleteListing = async (id) => {
     });
 };
 
+const getListingsByRestaurantId = async (restaurantId) => {
+    return prisma.listing.findMany({
+        where: {restaurant_id: parseInt(restaurantId)}
+    });
+};
+
 
 module.exports = {
     getAllListings,
     getListingById,
     createListing,
     updateListing,
-    deleteListing
+    deleteListing,
+    getListingsByRestaurantId
 };

@@ -66,10 +66,51 @@ const deleteRequest = async (req, res) => {
     }
 };
 
+const addItemToRequest = async (req, res) => {
+    try {
+      const requestItem = await requestModel.addItemToRequest(req.params.id, req.body);
+      res.json(requestItem);
+    } 
+    catch (error) {
+      console.error("Error adding item to request:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+const deleteItemFromRequest = async (req, res) => {
+    try {
+      const requestItem = await requestModel.deleteItemFromRequest(req.params.id);
+      res.json(requestItem);
+    } 
+    catch (error) {
+      console.error("Error deleting item from request:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+const getRequestsByFoodPantryId = async (req, res) => {
+    try {
+        const requests = await requestModel.getRequestsByFoodPantryId(req.params.id);
+        if (requests) {
+            res.status(200).json(requests);
+        }
+        else {
+            res.status(404).json({ error: "Requests not found" });
+        }
+    }
+    catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+  
+
 module.exports = {
     getAllRequests,
     getRequestById,
     createRequest,
     updateRequest,
-    deleteRequest
+    deleteRequest,
+    addItemToRequest,
+    deleteItemFromRequest,
+    getRequestsByFoodPantryId
 };

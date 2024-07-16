@@ -58,7 +58,7 @@ model Listing {
 // Request model
 model Request {
   id              Int       @id @default(autoincrement())
-  date            DateTime
+  date            DateTime  @default(now()) @db.Timestamptz() 
   status          String
   food_pantry_id  Int
   food_pantry     FoodPantry @relation(fields: [food_pantry_id], references: [id])
@@ -80,7 +80,7 @@ model RequestItem {
 model Review {
   id              Int       @id @default(autoincrement())
   rating          Float
-  date            DateTime
+  date            DateTime  @default(now()) @db.Timestamptz()
   description     String
   food_pantry_id  Int
   food_pantry     FoodPantry @relation(fields: [food_pantry_id], references: [id])

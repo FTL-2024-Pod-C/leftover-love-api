@@ -6,6 +6,8 @@ router.get("/", reviewController.getAllReviews);
 
 router.get("/:id", reviewController.getReviewById);
 
+router.get("/restaurant/:id", reviewController.getReviewsByRestaurantId);
+
 router.post("/", reviewController.createReview);
 
 router.put("/:id", reviewController.updateReview);

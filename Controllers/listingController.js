@@ -66,10 +66,26 @@ const deleteListing = async (req, res) => {
     }
 };
 
+const getListingsByRestaurantId = async (req, res) => {
+    try {
+        const listings = await listingModel.getListingsByRestaurantId(req.params.id);
+        if (listings) {
+            res.status(200).json(listings);
+        }
+        else {
+            res.status(404).json({ error: "Listings not found" });
+        }
+    }
+    catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 module.exports = {
     getAllListings,
     getListingById,
     createListing,
     updateListing,
-    deleteListing
+    deleteListing,
+    getListingsByRestaurantId
 };

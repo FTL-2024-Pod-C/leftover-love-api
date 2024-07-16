@@ -6,7 +6,7 @@ const listingRoutes = require("./Routes/listingRoutes");
 const requestRoutes = require("./Routes/requestRoutes");
 const requestItemRoutes = require("./Routes/requestItemRoutes");
 const reviewRoutes = require("./Routes/reviewRoutes");
-require("dotenv").config()
+require("dotenv").config();
 
 const app = express();
 const port = 3000;

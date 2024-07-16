@@ -6,6 +6,8 @@ router.get("/", listingController.getAllListings);
 
 router.get("/:id", listingController.getListingById);
 
+router.get("/restaurant/:id", listingController.getListingsByRestaurantId);
+
 router.post("/", listingController.createListing);
 
 router.put("/:id", listingController.updateListing);
