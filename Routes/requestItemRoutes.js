@@ -6,6 +6,8 @@ router.get("/", requestItemController.getAllRequestItems);
 
 router.get("/:id", requestItemController.getRequestItemById);
 
+router.get("/restaurant/:id", requestItemController.getRequestItemsByRestaurantId);
+
 router.post("/", requestItemController.createRequestItem);
 
 router.put("/:id", requestItemController.updateRequestItem);

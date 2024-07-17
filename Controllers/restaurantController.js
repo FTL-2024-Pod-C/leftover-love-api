@@ -1,29 +1,16 @@
 const restaurantModel = require('../Models/restaurantModel.js');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const getAllRestaurants = async (req, res) => {
-    // let {category, sort, order} = req.query;
     let {category} = req.query;
     let filter = {};
-    // let orderBy = {};
 
     if (category) {
       filter.category = category;
     }
-
-    // if (!order) {
-    //   order = 'desc';
-    // }
-
-    // if (sort === 'price') {
-    //   orderBy = {price: order};
-    // }
-
-    // if (sort === 'name') {
-    //   orderBy = {name: order};
-    // }
   
     try {
-    //   const boards = await boardModel.getAllBoards(filter, orderBy);
       const restaurants = await restaurantModel.getAllRestaurants(filter);
       res.status(200).json(restaurants);
     } 

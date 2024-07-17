@@ -17,12 +17,14 @@ datasource db {
 model Restaurant {
   id             Int       @id @default(autoincrement())
   name           String
-  location       String
-  description    String
+  location       String?
+  description    String?
   email          String
-  phone_number   String
-  rating         Float
-  profile_photo  String
+  phone_number   String?
+  rating         Float?
+  profile_photo  String?
+  username       String
+  password       String
   listings       Listing[] // Establishing opposite relation
   reviews        Review[]  // Establishing opposite relation
 }
@@ -31,11 +33,13 @@ model Restaurant {
 model FoodPantry {
   id             Int       @id @default(autoincrement())
   name           String
-  location       String
-  description    String
+  location       String?
+  description    String?
   email          String
-  phone_number   String
-  profile_photo  String
+  phone_number   String?
+  profile_photo  String?
+  username       String
+  password       String
   requests       Request[] // Establishing opposite relation
   reviews        Review[]  // Establishing opposite relation
 }
@@ -51,7 +55,7 @@ model Listing {
   category        String
   photo_url       String
   restaurant_id   Int
-  restaurant      Restaurant @relation(fields: [restaurant_id], references: [id])
+  restaurant      Restaurant @relation(fields: [restaurant_id], references: [id], onDelete: Cascade)
   request_items   RequestItem[] // Establishing opposite relation
 }
 
@@ -61,7 +65,7 @@ model Request {
   date            DateTime  @default(now()) @db.Timestamptz() 
   status          String
   food_pantry_id  Int
-  food_pantry     FoodPantry @relation(fields: [food_pantry_id], references: [id])
+  food_pantry     FoodPantry @relation(fields: [food_pantry_id], references: [id], onDelete: Cascade)
   request_items   RequestItem[] // Establishing opposite relation
 }
 
@@ -71,9 +75,9 @@ model RequestItem {
   quantity    Int
   status      String
   listing_id  Int
-  listing     Listing  @relation(fields: [listing_id], references: [id])
+  listing     Listing  @relation(fields: [listing_id], references: [id], onDelete: Cascade)
   request_id  Int
-  request     Request  @relation(fields: [request_id], references: [id])
+  request     Request  @relation(fields: [request_id], references: [id], onDelete: Cascade)
 }
 
 // Review model
@@ -83,7 +87,7 @@ model Review {
   date            DateTime  @default(now()) @db.Timestamptz()
   description     String
   food_pantry_id  Int
-  food_pantry     FoodPantry @relation(fields: [food_pantry_id], references: [id])
+  food_pantry     FoodPantry @relation(fields: [food_pantry_id], references: [id], onDelete: Cascade)
   restaurant_id   Int
-  restaurant      Restaurant @relation(fields: [restaurant_id], references: [id])
+  restaurant      Restaurant @relation(fields: [restaurant_id], references: [id], onDelete: Cascade)
 }

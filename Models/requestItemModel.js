@@ -1,7 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
 
-// gets all the boards or gets the boards by a specific category
 const getAllRequestItems = async () => {
     return prisma.requestItem.findMany({
 
@@ -17,7 +16,7 @@ const getRequestItemById = async (id) => {
 
 const createRequestItem = async (requestItemData) => {
     return prisma.requestItem.create({
-        data: requestItemsData 
+        data: requestItemData 
     });
 };
 
@@ -34,11 +33,18 @@ const deleteRequestItem = async (id) => {
     });
 };
 
+const getRequestItemsByRestaurantId = async (restaurantId) => {
+    return prisma.requestItem.findMany({
+        where: {listing: {restaurant_id: parseInt(restaurantId)}}
+    });
+};
+
 
 module.exports = {
     getAllRequestItems,
     getRequestItemById,
     createRequestItem,
     updateRequestItem,
-    deleteRequestItem
+    deleteRequestItem,
+    getRequestItemsByRestaurantId
 };

@@ -66,10 +66,26 @@ const deleteRequestItem = async (req, res) => {
     }
 };
 
+const getRequestItemsByRestaurantId = async (req, res) => {
+    try {
+        const requestItems = await requestItemModel.getRequestItemsByRestaurantId(req.params.id);
+        if (requestItems) {
+            res.status(200).json(requestItems);
+        }
+        else {
+            res.status(404).json({ error: "Request Items not found" });
+        }
+    }
+    catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 module.exports = {
     getAllRequestItems,
     getRequestItemById,
     createRequestItem,
     updateRequestItem,
-    deleteRequestItem
+    deleteRequestItem,
+    getRequestItemsByRestaurantId
 };
