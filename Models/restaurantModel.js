@@ -24,9 +24,9 @@ const getRestaurantById = async (id) => {
     });
 };
 
-const createRestaurant = async (restaurantData) => {
+const createRestaurant = async (name, email, username, password) => {
     return prisma.restaurant.create({
-        data: restaurantData 
+        data: {name, email, username, password}
     });
 };
 

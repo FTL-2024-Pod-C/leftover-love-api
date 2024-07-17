@@ -35,8 +35,10 @@ const getRestaurantById = async (req, res) => {
 };
 
 const createRestaurant = async (req, res) => {
+    const {name, email, username, password} = req.body;
     try {
-        const newRestaurant = await restaurantModel.createRestaurant(req.body);
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newRestaurant = await restaurantModel.createRestaurant(name, email, username, hashedPassword);
         res.status(201).json(newRestaurant);
     } 
     catch (error) {
