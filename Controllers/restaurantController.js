@@ -34,6 +34,21 @@ const getRestaurantById = async (req, res) => {
     }
 };
 
+const getRestaurantByUsername = async (req, res) => {
+    try {
+        const restaurant = await restaurantModel.getRestaurantByUsername(req.params.username);
+        if (restaurant) {
+            res.status(200).json(restaurant);
+        } 
+        else {
+            res.status(404).json({ error: "Restaurant not found" });
+        }
+    }
+    catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
 const createRestaurant = async (req, res) => {
     const {name, email, username, password} = req.body;
     try {
@@ -76,10 +91,33 @@ const deleteRestaurant = async (req, res) => {
     }
 };
 
+// checks the info that a restaurant user gives to log in
+const loginRestaurant = async (req, res) => {
+    const {username, password} = req.body;
+    
+    // looks for the username entered by the restaurant in the restaurant schema
+    const restaurant = await restaurantModel.getRestaurantByUsername(username);
+    
+    // if the restaurant is found and the password they entered is correct
+    // token is output
+    if (restaurant && (await bcrypt.compare(password, restaurant.password))) {
+        const token = jwt.sign(
+            {restaurantId: restaurant.id, resturantUserName: restaurant.username},
+            "SECRET KEY"
+        );
+        res.status(200).json({token});
+    }
+    else {
+        res.status(401).json({error: "Invalid Credentials"});
+    }
+};
+
 module.exports = {
     getAllRestaurants,
     getRestaurantById,
+    getRestaurantByUsername,
     createRestaurant,
     updateRestaurant,
-    deleteRestaurant
+    deleteRestaurant,
+    loginRestaurant
 };

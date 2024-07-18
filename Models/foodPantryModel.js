@@ -22,9 +22,20 @@ const getFoodPantryById = async (id) => {
     });
 };
 
-const createFoodPantry = async (foodPantryData) => {
+// used in food pantry log in authentication to look for the food pantry via its username
+const getFoodPantryByUsername = async (username) => {
+    return prisma.foodPantry.findUnique({
+        where: {username},
+        include: {
+            requests: true,
+            reviews: true
+        }
+    });
+};
+
+const createFoodPantry = async (name, email, username, password) => {
     return prisma.foodPantry.create({
-        data: foodPantryData 
+        data: {name, email, username, password}
     });
 };
 
@@ -45,6 +56,7 @@ const deleteFoodPantry = async (id) => {
 module.exports = {
     getAllFoodPantries,
     getFoodPantryById,
+    getFoodPantryByUsername,
     createFoodPantry,
     updateFoodPantry,
     deleteFoodPantry

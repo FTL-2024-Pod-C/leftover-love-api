@@ -1,4 +1,6 @@
 const foodPantryModel = require('../Models/foodPantryModel.js');
+const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 
 const getAllFoodPantries = async (req, res) => {
     try {
@@ -26,9 +28,26 @@ const getFoodPantryById = async (req, res) => {
     }
 };
 
-const createFoodPantry = async (req, res) => {
+const getFoodPantryByUsername = async (req, res) => {
     try {
-        const newFoodPantry = await foodPantryModel.createFoodPantry(req.body);
+        const foodPantry = await foodPantryModel.getFoodPantryByUsername(req.params.username);
+        if (foodPantry) {
+            res.status(200).json(foodPantry);
+        } 
+        else {
+            res.status(404).json({ error: "Food Pantry not found" });
+        }
+    }
+    catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
+const createFoodPantry = async (req, res) => {
+    const {name, email, username, password} = req.body;
+    try {
+        const hashedPassword = await bcrypt.hash(password, 10);
+        const newFoodPantry = await foodPantryModel.createFoodPantry(name, email, username, hashedPassword);
         res.status(201).json(newFoodPantry);
     } 
     catch (error) {
@@ -66,10 +85,35 @@ const deleteFoodPantry = async (req, res) => {
     }
 };
 
+// checks the info that a food pantry user gives to log in
+const loginFoodPantry = async (req, res) => {
+    const {username, password} = req.body;
+    
+    // looks for the username entered by the food pantry in the food pantry schema
+    const foodPantry = await foodPantryModel.getFoodPantryByUsername(username);
+    console.log(foodPantry);
+    console.log()
+    
+    // if the food pantry is found and the password they entered is correct
+    // token is output
+    if (foodPantry && (await bcrypt.compare(password, foodPantry.password))) {
+        const token = jwt.sign(
+            {foodPantryId: foodPantry.id, foodPantryUserName: foodPantry.username},
+            "SECRET KEY"
+        );
+        res.status(200).json({token});
+    }
+    else {
+        res.status(401).json({error: "Invalid Credentials"});
+    }
+};
+
 module.exports = {
     getAllFoodPantries,
     getFoodPantryById,
+    getFoodPantryByUsername,
     createFoodPantry,
     updateFoodPantry,
-    deleteFoodPantry
+    deleteFoodPantry,
+    loginFoodPantry
 };

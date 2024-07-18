@@ -24,6 +24,17 @@ const getRestaurantById = async (id) => {
     });
 };
 
+// used in restaurant log in authentication to look for the restaurant via its username
+const getRestaurantByUsername = async (username) => {
+    return prisma.restaurant.findUnique({
+        where: {username},
+        include: {
+            listings: true,
+            reviews: true
+        }
+    });
+};
+
 const createRestaurant = async (name, email, username, password) => {
     return prisma.restaurant.create({
         data: {name, email, username, password}
@@ -47,6 +58,7 @@ const deleteRestaurant = async (id) => {
 module.exports = {
     getAllRestaurants,
     getRestaurantById,
+    getRestaurantByUsername,
     createRestaurant,
     updateRestaurant,
     deleteRestaurant
