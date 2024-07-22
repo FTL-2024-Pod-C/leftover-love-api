@@ -26,7 +26,6 @@ const getRestaurantById = async (id) => {
 
 // used in restaurant log in authentication to look for the restaurant via its username
 const getRestaurantByUsername = async (username) => {
-    console.log(username)
     return prisma.restaurant.findUnique({
         where: {username},
         include: {
