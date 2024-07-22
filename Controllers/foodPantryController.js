@@ -43,6 +43,7 @@ const getFoodPantryByUsername = async (req, res) => {
     }
 };
 
+// a food pantry registers on our website
 const createFoodPantry = async (req, res) => {
     const {name, email, username, password} = req.body;
     try {
@@ -51,7 +52,7 @@ const createFoodPantry = async (req, res) => {
         res.status(201).json(newFoodPantry);
     } 
     catch (error) {
-      res.status(400).json({ error: error.message });
+      res.status(400).json({ error: "User register error, maybe the user exists"});
     }
 };
 
@@ -97,7 +98,7 @@ const loginFoodPantry = async (req, res) => {
     // if the food pantry is found and the password they entered is correct
     // token is output
     if (foodPantry && (await bcrypt.compare(password, foodPantry.password))) {
-        const token = jwt.sign(
+        const token = jwt.sign( // as a token encode id and username and respond to client
             {foodPantryId: foodPantry.id, foodPantryUserName: foodPantry.username},
             "SECRET KEY"
         );

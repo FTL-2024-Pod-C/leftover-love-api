@@ -57,7 +57,7 @@ const createRestaurant = async (req, res) => {
         res.status(201).json(newRestaurant);
     } 
     catch (error) {
-      res.status(400).json({ error: error.message });
+      res.status(400).json({ error: "User register error, maybe the user exists" });
     }
 };
 
@@ -101,7 +101,7 @@ const loginRestaurant = async (req, res) => {
     // if the restaurant is found and the password they entered is correct
     // token is output
     if (restaurant && (await bcrypt.compare(password, restaurant.password))) {
-        const token = jwt.sign(
+        const token = jwt.sign( // as a token encode id and username and respond to client
             {restaurantId: restaurant.id, resturantUserName: restaurant.username},
             "SECRET KEY"
         );
