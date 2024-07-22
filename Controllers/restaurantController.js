@@ -93,7 +93,9 @@ const deleteRestaurant = async (req, res) => {
 
 // checks the info that a restaurant user gives to log in
 const loginRestaurant = async (req, res) => {
+    console.log(req.body);
     const {username, password} = req.body;
+
     
     // looks for the username entered by the restaurant in the restaurant schema
     const restaurant = await restaurantModel.getRestaurantByUsername(username);
