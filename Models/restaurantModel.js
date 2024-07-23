@@ -26,7 +26,6 @@ const getRestaurantById = async (id) => {
 
 // used in restaurant log in authentication to look for the restaurant via its username
 const getRestaurantByUsername = async (username) => {
-    console.log(username)
     return prisma.restaurant.findUnique({
         where: {username},
         include: {
@@ -55,6 +54,26 @@ const deleteRestaurant = async (id) => {
     });
 };
 
+const addListing = async (restaurantId, listingData) => {
+    return prisma.listing.create({ 
+        data: { 
+            restaurant_id: parseInt(restaurantId),
+            name: listingData.name,
+            description: listingData.description,
+            quantity: listingData.quantity,
+            unit: listingData.unit,
+            expiration_date: listingData.expiration_date,
+            category: listingData.category
+        } 
+    });
+}
+
+const deleteListing = async (listingId) => {
+    return prisma.listing.delete({ 
+        where: {id: parseInt(listingId)}
+    });
+}
+
 
 module.exports = {
     getAllRestaurants,
@@ -62,5 +81,7 @@ module.exports = {
     getRestaurantByUsername,
     createRestaurant,
     updateRestaurant,
-    deleteRestaurant
+    deleteRestaurant,
+    addListing,
+    deleteListing
 };

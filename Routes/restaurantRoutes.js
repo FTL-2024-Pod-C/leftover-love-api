@@ -14,8 +14,12 @@ router.post("/restaurantlogin", restaurantController.loginRestaurant);
 
 router.post("/", restaurantController.createRestaurant);
 
+router.post("/:restaurant_id/listings", restaurantController.addListing);
+
 router.put("/:id", restaurantController.updateRestaurant);
 
 router.delete("/:id", restaurantController.deleteRestaurant);
+
+router.delete("/:id/listings/:listing_id", restaurantController.deleteListing);
 
 module.exports = router;

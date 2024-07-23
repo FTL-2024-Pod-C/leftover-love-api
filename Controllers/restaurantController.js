@@ -91,6 +91,28 @@ const deleteRestaurant = async (req, res) => {
     }
 };
 
+const addListing = async (req, res) => {
+    try {
+      const listing = await restaurantModel.addListing(req.params.restaurant_id, req.body);
+      res.json(listing);
+    } 
+    catch (error) {
+      console.error("Error adding listing:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+const deleteListing = async (req, res) => {
+    try {
+      const listing = await restaurantModel.deleteListing(req.params.listing_id);
+      res.json(listing);
+    } 
+    catch (error) {
+      console.error("Error deleting listing:", error);
+      res.status(500).json({ error: "Internal server error" });
+    }
+};
+
 // checks the info that a restaurant user gives to log in
 const loginRestaurant = async (req, res) => {
     console.log(req.body);
@@ -121,5 +143,7 @@ module.exports = {
     createRestaurant,
     updateRestaurant,
     deleteRestaurant,
+    addListing,
+    deleteListing,
     loginRestaurant
 };
