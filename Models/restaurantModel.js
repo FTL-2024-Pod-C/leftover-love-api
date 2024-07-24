@@ -55,6 +55,7 @@ const deleteRestaurant = async (id) => {
 };
 
 const addListing = async (restaurantId, listingData) => {
+    console.log(listingData.expirationDate);
     return prisma.listing.create({ 
         data: { 
             restaurant_id: parseInt(restaurantId),
@@ -62,8 +63,9 @@ const addListing = async (restaurantId, listingData) => {
             description: listingData.description,
             quantity: listingData.quantity,
             unit: listingData.unit,
-            expiration_date: listingData.expiration_date,
-            category: listingData.category
+            expiration_date: listingData.expirationDate,
+            category: listingData.category,
+            photo_url: listingData.photoURL
         } 
     });
 }

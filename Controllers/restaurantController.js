@@ -93,6 +93,7 @@ const deleteRestaurant = async (req, res) => {
 
 const addListing = async (req, res) => {
     try {
+        console.log(req.body)
       const listing = await restaurantModel.addListing(req.params.restaurant_id, req.body);
       res.json(listing);
     } 
