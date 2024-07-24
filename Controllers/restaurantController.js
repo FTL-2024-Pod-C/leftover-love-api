@@ -61,20 +61,36 @@ const createRestaurant = async (req, res) => {
     }
 };
 
+// const updateRestaurant = async (req, res) => {
+//     try {
+//         const updateRestaurant = await restaurantModel.updateRestaurant(req.params.id, req.body);
+//         if (updateRestaurant) {
+//             res.status(200).json(updateRestaurant);
+//         }
+//         else {
+//             res.status(404).json({ error: "Restaurant not found" });
+//         }
+//     }
+//     catch (error) {
+//         res.status(400).json({ error: error.message });
+//     }
+// };
 const updateRestaurant = async (req, res) => {
+    const { id } = req.params; // Extract restaurant ID from URL params
+    // const { profile_photo } = req.body; // Extract profile_photo from request body
+  
     try {
-        const updateRestaurant = await restaurantModel.updateRestaurant(req.params.id, req.body);
-        if (updateRestaurant) {
-            res.status(200).json(updateRestaurant);
-        }
-        else {
-            res.status(404).json({ error: "Restaurant not found" });
-        }
+      const updatedRestaurant = await restaurantModel.updateRestaurant(id, req.body);
+      
+      if (updatedRestaurant) {
+        res.status(200).json(updatedRestaurant);
+      } else {
+        res.status(404).json({ error: "Restaurant not found" });
+      }
+    } catch (error) {
+      res.status(400).json({ error: error.message });
     }
-    catch (error) {
-        res.status(400).json({ error: error.message });
-    }
-};
+  };
 
 const deleteRestaurant = async (req, res) => {
     try {

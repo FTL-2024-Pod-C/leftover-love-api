@@ -41,12 +41,46 @@ const createRestaurant = async (name, email, username, password) => {
     });
 };
 
-const updateRestaurant = async (id, restaurantData) => {
-    return prisma.restaurant.update({
-        where: {id: parseInt(id)},
-        data: restaurantData
+// const updateRestaurant = async (id, restaurantData) => {
+//     return prisma.restaurant.update({
+//         where: {id: parseInt(id)},
+//         data: restaurantData
+//     });
+// };
+const updateRestaurant = async (id, {name, location, description, email, phone_number}) => {
+  try {
+    const existingRestaurant = await prisma.restaurant.findUnique({
+      where: { id: Number(id) },
+        include: {
+            id: false
+        
+      }
     });
+
+    if (!existingRestaurant) {
+      throw new Error(`Restaurant with id ${id} not found`);
+    }
+
+    const updatedRestaurant = await prisma.restaurant.update({
+      where: { id: Number(id) },
+      data: {
+         ...existingRestaurant, // Spread existing data
+        // ...data, // Spread new data
+        name,
+        location,
+        description,
+        email,
+        phone_number
+      },
+    });
+
+    return updatedRestaurant;
+  } catch (error) {
+    throw new Error(`Failed to update restaurant: ${error.message}`);
+  }
 };
+
+  
 
 const deleteRestaurant = async (id) => {
     return prisma.restaurant.delete({
