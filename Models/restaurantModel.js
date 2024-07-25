@@ -42,6 +42,7 @@ const createRestaurant = async (name, email, username, password) => {
 };
 
 const updateRestaurant = async (id, restaurantData) => {
+    console.log("Restaurant data in baclkend model is: ",restaurantData)
     return prisma.restaurant.update({
         where: {id: parseInt(id)},
         data: restaurantData

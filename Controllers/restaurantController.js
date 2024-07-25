@@ -1,5 +1,6 @@
 const restaurantModel = require('../Models/restaurantModel.js');
 const bcrypt = require("bcrypt");
+const e = require('express');
 const jwt = require("jsonwebtoken");
 
 const getAllRestaurants = async (req, res) => {
@@ -63,6 +64,26 @@ const createRestaurant = async (req, res) => {
 
 const updateRestaurant = async (req, res) => {
     try {
+
+        // dynamically check if the req.body.name is null? Get getRestaurantById and get the name
+        
+        if(req.body.name == null) {
+            const tempRestaurant = await restaurantModel.getRestaurantById(req.params.id);
+            const restaurantName = tempRestaurant.name;
+
+            const reqBody = req.body
+            reqBody.name = restaurantName
+
+            const updateRestaurant = await restaurantModel.updateRestaurant(req.params.id, req.body);
+        if (updateRestaurant) {
+            res.status(200).json(updateRestaurant);
+        }
+        else {
+            res.status(404).json({ error: "Restaurant not found" });
+        }
+
+        }
+        else {
         const updateRestaurant = await restaurantModel.updateRestaurant(req.params.id, req.body);
         if (updateRestaurant) {
             res.status(200).json(updateRestaurant);
@@ -70,6 +91,7 @@ const updateRestaurant = async (req, res) => {
         else {
             res.status(404).json({ error: "Restaurant not found" });
         }
+    }
     }
     catch (error) {
         res.status(400).json({ error: error.message });
