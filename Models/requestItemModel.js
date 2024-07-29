@@ -15,7 +15,7 @@ const getRequestItemById = async (id) => {
 };
 
 const createRequestItem = async (requestItemData) => {
-    return prisma.requestItem.create({
+    return prisma.requestItem.createMany({
         data: requestItemData 
     });
 };
