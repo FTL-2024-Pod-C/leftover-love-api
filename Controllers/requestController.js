@@ -68,7 +68,7 @@ const deleteRequest = async (req, res) => {
 
 const addItemToRequest = async (req, res) => {
     try {
-      const requestItem = await requestModel.addItemToRequest(req.params.id, req.body);
+      const requestItem = await requestModel.addItemToRequest(req.body);
       res.json(requestItem);
     } 
     catch (error) {
