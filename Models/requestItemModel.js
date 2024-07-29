@@ -15,6 +15,17 @@ const getRequestItemById = async (id) => {
 };
 
 const createRequestItem = async (requestItemData) => {
+    requestItemData.map(async (item) => {
+        const listing = await prisma.listing.findUnique({where: {id: parseInt(item.listing_id)}});
+        console.log(listing);
+        await prisma.listing.update({
+            where: {id: parseInt(item.listing_id)},
+            data: {
+                quantity: parseInt(listing.quantity) - parseInt(item.quantity)
+            }
+        })
+    })
+    
     return prisma.requestItem.createMany({
         data: requestItemData 
     });
