@@ -3,6 +3,13 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const getAllFoodPantries = async (req, res) => {
+
+    let {category} = req.query
+    let filter = {};
+    if (category) {
+        filter.category = category;
+    }
+
     try {
     //   const boards = await boardModel.getAllBoards(filter, orderBy);
       const foodPantries = await foodPantryModel.getAllFoodPantries();
