@@ -35,15 +35,10 @@ const deleteRequest = async (id) => {
     });
 };
 
-const addItemToRequest = async (requestId, requestItemData) => {
+const addItemToRequest = async (requestItemData) => {
     
-    return prisma.requestItem.create({ 
-        data: { 
-            request_id: parseInt(requestId),
-            listing_id: parseInt(requestItemData.listing_id),
-            quantity: requestItemData.quantity,
-            status: requestItemData.status
-        } 
+    return prisma.requestItem.createMany({ 
+        data: requestItemData
     });
 };
 
