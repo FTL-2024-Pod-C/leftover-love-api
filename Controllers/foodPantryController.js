@@ -12,7 +12,7 @@ const getAllFoodPantries = async (req, res) => {
 
     try {
     //   const boards = await boardModel.getAllBoards(filter, orderBy);
-      const foodPantries = await foodPantryModel.getAllFoodPantries();
+      const foodPantries = await foodPantryModel.getAllFoodPantries(filter);
       res.status(200).json(foodPantries);
     } 
     catch (error) {

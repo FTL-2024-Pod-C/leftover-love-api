@@ -4,6 +4,7 @@ const prisma = new PrismaClient();
 // gets all the boards or gets the boards by a specific category
 const getAllFoodPantries = async () => {
     return prisma.foodPantry.findMany({
+        where: filter,
         include:{
             requests: true,
             reviews: true
