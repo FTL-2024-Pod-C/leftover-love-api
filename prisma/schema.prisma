@@ -22,7 +22,7 @@ model Restaurant {
   email          String
   phone_number   String?
   rating         Float?
-  profile_photo  String?
+  profile_photo  String?  @default("https://leftoverlove.s3.us-east-2.amazonaws.com/default_profile_photo.jpg")
   username       String   @unique
   password       String
   listings       Listing[] // Establishing opposite relation
@@ -37,7 +37,7 @@ model FoodPantry {
   description    String?
   email          String
   phone_number   String?
-  profile_photo  String?
+  profile_photo  String?  @default("https://leftoverlove.s3.us-east-2.amazonaws.com/default_profile_photo.jpg")
   username       String   @unique
   password       String
   requests       Request[] // Establishing opposite relation
