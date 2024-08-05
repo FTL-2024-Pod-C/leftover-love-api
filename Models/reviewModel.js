@@ -7,7 +7,6 @@ const getAllReviews = async () => {
     });
 };
 
-
 const getReviewById = async (id) => {
     return prisma.review.findUnique({
         where: {id: parseInt(id)},
@@ -38,7 +37,6 @@ const getReviewsByRestaurantId = async (restaurantId) => {
         where: {restaurant_id: parseInt(restaurantId)}
     });
 };
-
 
 module.exports = {
     getAllReviews,

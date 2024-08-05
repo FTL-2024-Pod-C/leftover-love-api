@@ -4,10 +4,8 @@ const prisma = new PrismaClient();
 // gets all the boards or gets the boards by a specific category
 const getAllListings = async () => {
     return prisma.listing.findMany({
-
     });
 };
-
 
 const getListingById = async (id) => {
     return prisma.listing.findUnique({
@@ -39,7 +37,6 @@ const getListingsByRestaurantId = async (restaurantId) => {
         where: {restaurant_id: parseInt(restaurantId)}
     });
 };
-
 
 module.exports = {
     getAllListings,
