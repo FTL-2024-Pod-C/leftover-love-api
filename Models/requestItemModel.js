@@ -3,7 +3,6 @@ const prisma = new PrismaClient();
 
 const getAllRequestItems = async () => {
     return prisma.requestItem.findMany({
-
     });
 };
 
@@ -49,7 +48,6 @@ const getRequestItemsByRestaurantId = async (restaurantId) => {
         where: {listing: {restaurant_id: parseInt(restaurantId)}}
     });
 };
-
 
 module.exports = {
     getAllRequestItems,

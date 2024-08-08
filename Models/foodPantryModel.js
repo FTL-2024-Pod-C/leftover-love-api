@@ -11,7 +11,6 @@ const getAllFoodPantries = async () => {
     });
 };
 
-
 const getFoodPantryById = async (id) => {
     return prisma.foodPantry.findUnique({
         where: {id: parseInt(id)},
@@ -51,7 +50,6 @@ const deleteFoodPantry = async (id) => {
         where: {id: parseInt(id)}
     });
 };
-
 
 module.exports = {
     getAllFoodPantries,

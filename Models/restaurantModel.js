@@ -13,7 +13,6 @@ const getAllRestaurants = async (filter = {}, orderBy = {}) => {
     });
 };
 
-
 const getRestaurantById = async (id) => {
     return prisma.restaurant.findUnique({
         where: {id: parseInt(id)},
@@ -76,7 +75,6 @@ const deleteListing = async (listingId) => {
         where: {id: parseInt(listingId)}
     });
 }
-
 
 module.exports = {
     getAllRestaurants,

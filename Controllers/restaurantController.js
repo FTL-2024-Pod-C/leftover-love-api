@@ -66,7 +66,6 @@ const updateRestaurant = async (req, res) => {
     try {
 
         // dynamically check if the req.body.name is null? Get getRestaurantById and get the name
-        
         if(req.body.name == null) {
             const tempRestaurant = await restaurantModel.getRestaurantById(req.params.id);
             const restaurantName = tempRestaurant.name;
